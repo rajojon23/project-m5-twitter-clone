@@ -51,19 +51,15 @@ const TweetUserInput = () =>{
         console.log("submitted" , inputText);
         let tweetArr = tweetArray;
 
-        tweetArr.push({id: "120979172109941", "timestamp":"2020-01-12T04:31:00+00:00",
+        tweetArr.push({id: "120979172109941", "timestamp":"2021-01-15T04:31:00+00:00",
         "status":"Test tweet",
         "media":[
-           {
-              "type":"img",
-              "url":"/assets/diplomog-yarn.png"
-           }
         ],
         "author":{
            "handle":"treasurymog",
-           "displayName":"testDisplayname",
-           "avatarSrc":"/assets/diplomog-avatar.jpg",
-           "bannerSrc":"/assets/diplomog-banner.jpeg",
+           "displayName":"Gladstone, Esq.",
+           "avatarSrc":"/assets/treasurymog-avatar.jpg",
+           "bannerSrc":"/assets/treasurymog-banner.jpeg",
            "location":"Whitehall",
            "url":"http://fco.gov.uk",
            "joined":"2016-02-02T12:00",
@@ -71,20 +67,32 @@ const TweetUserInput = () =>{
            "numFollowing":1,
            "numFollowers":1,
            "numLikes":1,
-           "isFollowingYou":true,
-           "isBeingFollowedByYou":true
+           "isFollowingYou":false,
+           "isBeingFollowedByYou":false
         },
         "isLiked":false,
         "isRetweeted":false,
         "numLikes":0,
         "numRetweets":0});
 
-
+        
 
         setTweetArray(tweetArr);
 
         console.log("new tweetArray", tweetArray);
 
+
+        fetch("/api/tweet", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({ status: `${inputText}` }),
+          })
+            .then((res) => res.json())
+            .then((json) => {
+              console.log("received tweet post answer", json);
+            });
     }
 
 
