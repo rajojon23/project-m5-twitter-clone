@@ -12,7 +12,9 @@ const TweetUserInput = () =>{
         currentUser, 
         status,
         tweetArray,
-        setTweetArray
+        setTweetArray,
+        newTweetStatus,
+        setNewTweetStatus
       } = useContext(CurrentUserContext);
 
     const [disabled, setDisabled] = useState(false);    
@@ -92,6 +94,7 @@ const TweetUserInput = () =>{
             .then((res) => res.json())
             .then((json) => {
               console.log("received tweet post answer", json);
+              setNewTweetStatus(!newTweetStatus);
             });
     }
 

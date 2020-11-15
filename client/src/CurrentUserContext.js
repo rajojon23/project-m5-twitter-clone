@@ -18,6 +18,8 @@ export const CurrentUserProvider = ({ children }) => {
     
     const [tweetArray , setTweetArray] = React.useState([]);
 
+    const [newTweetStatus , setNewTweetStatus] = React.useState(false);
+
     console.log("provider call");
     // Fetch the user data from the API (/me/profile)
     // fetch(`https://jsonplaceholder.typicode.com/posts/1`)
@@ -57,7 +59,7 @@ export const CurrentUserProvider = ({ children }) => {
             setHomeFeedStatus("error");
           });
     
-      }, []);
+      }, [newTweetStatus]);
 
  
       
@@ -121,7 +123,9 @@ export const CurrentUserProvider = ({ children }) => {
           currentFollowers,
           followerStatus,
           tweetArray,
-          setTweetArray
+          setTweetArray,
+          newTweetStatus,
+          setNewTweetStatus
           }}>
         {children}
       </CurrentUserContext.Provider>
