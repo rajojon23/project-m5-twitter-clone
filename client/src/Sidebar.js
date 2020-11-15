@@ -46,6 +46,11 @@ const Nav = styled.nav `
   font-weight: bold;
   width: 280px;
 
+  ul{
+    border-right: 1px solid lightgrey;
+    height: 300px;
+  }
+
   li {
     padding: 4px;
     

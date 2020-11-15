@@ -17,14 +17,23 @@ const TweetUserInput = () =>{
 
     const [disabled, setDisabled] = useState(false);    
     const [inputText,setInputText] = useState("");        
-    const [charLeft,setCharLeft] = useState(280);        
+    const [charLeft,setCharLeft] = useState(280); 
+    const [countColor,setCountColor] = useState("gray");             
           
 
     useEffect(() => {
         if(charLeft < 0){
             setDisabled(true);
+            setCountColor("red");
+
         }else{
             setDisabled(false);
+            setCountColor("gray");
+
+            if(charLeft <= 55){
+                setCountColor("orange");
+
+            }
         }
 
     }, [inputText, setDisabled]);
@@ -88,14 +97,20 @@ const TweetUserInput = () =>{
 
                 </InputTop>
                 <InputTweetBottom>
-                        <span>{charLeft}</span>
-                        <button disabled={disabled} onClick={handleSubmit}>Meow</button>
+                        <span style={{color: countColor}}>{charLeft}</span>
+                        <button disabled={disabled} style={ disabled ? { opacity:'0.5' } : {opacity:'1', cursor: 'pointer' } }   onClick={handleSubmit}>Meow</button>
                 </InputTweetBottom>
             </Wrapper>
         );    
     }
     else{
-      return <img src={Loading} style={{width: 30, height :30, margin: "0 auto", marginTop: 30}}/>
+        if(status == "error"){
+            return <div>Error while fetching user profile</div>
+        }else{
+            return <img src={Loading} style={{width: 30, height :30, margin: "0 auto", marginTop: 30}}/>
+        }
+
+      
     }
 
 
@@ -161,7 +176,6 @@ const InputTweetBottom = styled.div`
         font-weight: bold;
         background-color: hsl(258deg,100%,50%);
         color: #fff;
-        cursor: pointer;
     }
 `;
 export default TweetUserInput;

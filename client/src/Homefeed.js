@@ -63,8 +63,13 @@ const Homefeed = () => {
             <TweetContainer tweet = {tweet} setTweetArray={setTweetArray} tweetArray={tweetArray}>
             </TweetContainer>
           )
-        )) : (
-            <img src={Loading} style={{width: 30, height :30, margin: "0 auto", marginTop: 30}}/>
+        )) : homeFeedStatus == "error" ? (
+          <div>Error while fetching home feed</div>
+
+            
+        ) : (
+          <img src={Loading} style={{width: 30, height :30, margin: "0 auto", marginTop: 30}}/>
+      
         )}
       </Wrappera>
 

@@ -35,6 +35,7 @@ export const CurrentUserProvider = ({ children }) => {
             setStatus("idle");
           }).catch(function(error) {
             console.log("error is caught");
+            setStatus("error");
           });
     
       }, []);
@@ -48,7 +49,12 @@ export const CurrentUserProvider = ({ children }) => {
             // When the data is received, update currentUserFeed.
             // Also, set `status` to `idle`
             setCurrentUserHomeFeed(json);
+
+
             setHomeFeedStatus("idle");
+          }).catch(function(error) {
+            console.log("error is caught");
+            setHomeFeedStatus("error");
           });
     
       }, []);
