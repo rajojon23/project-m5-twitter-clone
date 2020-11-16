@@ -32,7 +32,6 @@ const MeowProfile = () => {
     const location = useLocation();
 
 
-    console.log("location found", location.state.profileHandle); 
 
 
     React.useEffect(() => {
@@ -40,9 +39,8 @@ const MeowProfile = () => {
 
         fetch(`/api/${profileHandle}/profile`)
           .then((res) => res.json())
-          .then((json) => {
+          .then((json) => {//received profile info
 
-            console.log("received profile info", json.profile );
             setMeowProfile(json);//this has to be called before the change of status to 'idle'
             setMeowProfileStatus("idle");
             
@@ -55,10 +53,7 @@ const MeowProfile = () => {
 
       fetch(`/api/${profileHandle}/feed`)
         .then((res) => res.json())
-        .then((json) => {
-
-          console.log("received profile feed", json );
-
+        .then((json) => {//received profile feed
           setMeowProfileFeed(json);
           setMeowFeedStatus("idle");
         });
@@ -81,9 +76,9 @@ const MeowProfile = () => {
     if(meowProfileStatus == "idle"){
 
       if(followerStatus == "idle"){
-        console.log("inside followerstatus idle");
-        if(currentFollowers.includes(meowProfile.profile.handle)){
-          console.log("this cat follows you");
+
+        if(currentFollowers.includes(meowProfile.profile.handle)){//if true, this cat follows you 
+
           isFollowingYou = true;
         }
       }
@@ -103,7 +98,7 @@ const MeowProfile = () => {
               @{meowProfile.profile.handle}
               { isFollowingYou && (
 
-                <span> Follows you</span>
+                <span className="follows_you"> Follows you </span>
 
 
               )}
@@ -137,7 +132,7 @@ const MeowProfile = () => {
             
             { meowFeedStatus == "idle" ? (
               tweetArr.map((tweet) => (
-                <TweetContainer tweet = {tweet}>
+                <TweetContainer key={tweet.id} tweet = {tweet} >
                 </TweetContainer>
               )
             )) : (
@@ -160,11 +155,7 @@ const TweetContainer = ({tweet}) => {
   let id = tweet.id;
 
   
-    const handleOpenTweetDetails = (ev) =>{
-
-      console.log("tweeter details open clicked");
-
-      
+    const handleOpenTweetDetails = (ev) =>{//tweeter details open clicked
 
           history.push({
             pathname: `/tweet/${id}`,
@@ -294,6 +285,12 @@ const DisplayName = styled.div`
 const Handle = styled.div`
     color: gray;
 
+    .follows_you{
+      background-color: #e3e2f7;
+      margin-left: 10px;
+      border-radius: 6px;
+      padding: 1px 2px 1px 2px;      
+    }
 `;
 
 const Bio = styled.p`

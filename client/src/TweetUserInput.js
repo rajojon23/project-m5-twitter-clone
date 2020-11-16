@@ -60,8 +60,8 @@ const TweetUserInput = () =>{
                 .then((res) => res.json())
                 .then((json) => {// received tweet post answer
                   setNewTweetStatus(!newTweetStatus);//changing this state in order to notify CurrentUserContext.js for rerendering using useEffect 
-                
-                  setInputText("");  
+                    
+                  
                 });
 
         }
@@ -74,7 +74,7 @@ const TweetUserInput = () =>{
 
     if(status == "idle"){
         return (
-            <Wrapper>
+            <Wrapper style={{fontFamily : "'Roboto', sans-serif"}}>
                 <InputTop>
                     <Avatar src={currentUser.profile.avatarSrc} ></Avatar>
                     <InputTweet placeholder="Type your tweet here" rows="10" onChange={(ev) => handleChange(ev)}></InputTweet>
@@ -110,6 +110,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   border: 1px solid lightgray;
   padding-bottom: 10px;
+
+
+
 `;
 
 const InputTop = styled.div`
@@ -135,9 +138,24 @@ const InputTweet = styled.textarea`
     resize: none;
     border: none;
     width: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
   
     &:focus{
         outline: none;
+    }
+
+    &::-webkit-input-placeholder {
+        font-family: 'Roboto', sans-serif;
+    }
+    &:-moz-placeholder {
+        font-family: 'Roboto', sans-serif;
+    }
+    &::-moz-placeholder {
+        font-family: 'Roboto', sans-serif;
+    }
+    &:-ms-input-placeholder {
+        font-family: 'Roboto', sans-serif;
     }
 `;
 
@@ -154,6 +172,7 @@ const InputTweetBottom = styled.div`
     }
 
     button{
+        font-family: 'Roboto', sans-serif;
         padding: 6px 9px 6px 11px;
         border-radius: 30px;
         border: 1px solid hsl(258deg,100%,50%);

@@ -5,14 +5,12 @@ import { useHistory } from "react-router-dom";
 
 const TweetHeader = ({ displayName, username, avatarSrc, tweet }) => {
     const history = useHistory();
-    // let displayDate = format(tweet.timestamp, "iiii");
 
-    // console.log("date", displayDate);
 
-    const handleOpenProfile = (ev) => {
+    const handleOpenProfile = (ev) => {//profile opening is called from a tweet (the handle has been clicked)
         ev.preventDefault();//we need this and stoppropagation to prevent the event handleOpenTweetDetails() in the Homefeed.js component from firing
         ev.stopPropagation();
-        console.log("profile opening called", tweet.author.handle);
+
         let handle = tweet.author.handle;
 
 
@@ -23,18 +21,7 @@ const TweetHeader = ({ displayName, username, avatarSrc, tweet }) => {
 
     }
 
-    // const handleOpenTweetDetails = (ev) => {
-    //   console.log("tweet opening called", tweet.id);
-    //   let id = tweet.id;
-
-
-    //   history.push({
-    //     pathname: `/tweet/${id}`,
-    //     state: { tweetID: id }
-    //   });
-
-    // }
-
+ 
 
   return (
     <Wrapper>
