@@ -73,7 +73,7 @@ const Profile = () => {
         
         { profileFeedStatus == "idle" ? (
             Object.values(currentUserProfileFeed["tweetsById"]).map((tweet) => (
-              <TweetWrapper onClick={(ev) => handleOpenTweetDetails(ev, tweet)} aria-label="View Tweet" tabIndex="0">
+              <TweetWrapper onClick={(ev) => handleOpenTweetDetails(ev, tweet)} aria-label="View Tweet" tabIndex="0" key={tweet.id}>
               { tweet.hasOwnProperty('retweetFrom') && (//check if this is a retweeted tweet
 
               <div  className="retweet"><AiOutlineRetweet />{tweet.retweetFrom.displayName} Remeowed</div>

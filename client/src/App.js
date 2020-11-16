@@ -9,18 +9,11 @@ import Bookmarks from "./Bookmarks";
 import TweetDetails from "./TweetDetails";
 import MeowProfile from "./MeowProfile";
 
-import {COLORS} from "./constants";
-import GlobalStyles, { themeVars } from "./GlobalStyles";
 import styled from "styled-components";
 import {  BrowserRouter, Switch, Route } from "react-router-dom";
-import {CurrentUserContext} from "./CurrentUserContext";
 
 const App = () => {
-  
-  const {
-    currentUser,
-    status
-  } = useContext(CurrentUserContext);
+
 
 
   return (

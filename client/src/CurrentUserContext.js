@@ -20,7 +20,9 @@ export const CurrentUserProvider = ({ children }) => {
 
     const [newTweetStatus , setNewTweetStatus] = React.useState(false);
 
-    console.log("provider call");
+    // provider call
+
+
     // Fetch the user data from the API (/me/profile)
     // fetch(`https://jsonplaceholder.typicode.com/posts/1`)
 
@@ -35,8 +37,8 @@ export const CurrentUserProvider = ({ children }) => {
             // Also, set `status` to `idle`
             setCurrentUser(json);
             setStatus("idle");
-          }).catch(function(error) {
-            console.log("error is caught");
+          }).catch(function(error) {//error is caught
+
             setStatus("error");
           });
     
@@ -55,11 +57,10 @@ export const CurrentUserProvider = ({ children }) => {
 
             setHomeFeedStatus("idle");
           }).catch(function(error) {
-            console.log("error is caught");
             setHomeFeedStatus("error");
           });
     
-      }, [newTweetStatus]);
+      }, [newTweetStatus]);//add this dependency in order to refetch and update homefeed by rerendering, state is changed inside TextUserInput.js component
 
  
       
@@ -68,8 +69,6 @@ export const CurrentUserProvider = ({ children }) => {
         fetch(`/api/treasurymog/feed`)
           .then((res) => res.json())
           .then((json) => {
-    
-            console.log("feed data", json);
             // When the data is received, update currentUserFeed.
             // Also, set `status` to `idle`
             setCurrentUserProfileFeed(json);
@@ -82,16 +81,14 @@ export const CurrentUserProvider = ({ children }) => {
         
         fetch(`/api/treasurymog/followers`)
           .then((res) => res.json())
-          .then((json) => {
-    
-            console.log("received followers data", json["followers"]);
+          .then((json) => {//received followers data
+
             let followersArr = [];
 
             json["followers"].forEach( (follower) =>{
-                followersArr.push(follower.handle);
+                followersArr.push(follower.handle);//followers set
             });
 
-            console.log("followers set", followersArr);
             // When the data is received, update currentUserFeed.
             // Also, set `status` to `idle`
 
@@ -101,16 +98,6 @@ export const CurrentUserProvider = ({ children }) => {
     
       }, []);
 
-      React.useEffect(() => {
-        
-
-    
-      }, []);
-
-    const updateHomeFeed = (tweetID) => {
-        console.log("updateHomeFeed called");
-    }
-  
     return (
       <CurrentUserContext.Provider value={{ 
           currentUser, 

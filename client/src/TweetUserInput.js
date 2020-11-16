@@ -40,62 +40,35 @@ const TweetUserInput = () =>{
 
     }, [inputText, setDisabled]);
 
-    const handleChange = (ev) => {
-        console.log("input change" , ev.target.value);
-        console.log("input length" , ev.target.value.length);
+    const handleChange = (ev) => {//input cahnge has been called 
+
         setInputText(ev.target.value);
 
         setCharLeft(280 - ev.target.value.length);
     }
 
 
-    const handleSubmit = () => {
-        console.log("submitted" , inputText);
-        let tweetArr = tweetArray;
+    const handleSubmit = () => {//meow has been submitted and the text is inputText
+        if(inputText.length > 0){
+            fetch("/api/tweet", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                  },
+                body: JSON.stringify({ status: `${inputText}` }),
+              })
+                .then((res) => res.json())
+                .then((json) => {// received tweet post answer
+                  setNewTweetStatus(!newTweetStatus);//changing this state in order to notify CurrentUserContext.js for rerendering using useEffect 
+                
+                  setInputText("");  
+                });
 
-        tweetArr.push({id: "120979172109941", "timestamp":"2021-01-15T04:31:00+00:00",
-        "status":"Test tweet",
-        "media":[
-        ],
-        "author":{
-           "handle":"treasurymog",
-           "displayName":"Gladstone, Esq.",
-           "avatarSrc":"/assets/treasurymog-avatar.jpg",
-           "bannerSrc":"/assets/treasurymog-banner.jpeg",
-           "location":"Whitehall",
-           "url":"http://fco.gov.uk",
-           "joined":"2016-02-02T12:00",
-           "bio":"Best friends with @treasurymog.",
-           "numFollowing":1,
-           "numFollowers":1,
-           "numLikes":1,
-           "isFollowingYou":false,
-           "isBeingFollowedByYou":false
-        },
-        "isLiked":false,
-        "isRetweeted":false,
-        "numLikes":0,
-        "numRetweets":0});
+        }
+        else{
+            alert("there is nothing to tweet, silly");
+        }
 
-        
-
-        setTweetArray(tweetArr);
-
-        console.log("new tweetArray", tweetArray);
-
-
-        fetch("/api/tweet", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-              },
-            body: JSON.stringify({ status: `${inputText}` }),
-          })
-            .then((res) => res.json())
-            .then((json) => {
-              console.log("received tweet post answer", json);
-              setNewTweetStatus(!newTweetStatus);
-            });
     }
 
 

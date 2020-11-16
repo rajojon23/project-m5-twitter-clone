@@ -9,16 +9,11 @@ import Loading from "./assets/catspin.gif";
 
 import { CurrentUserContext } from "./CurrentUserContext";
 
-import { FiBell, FiBookmark } from "react-icons/fi";
-import { BiHomeAlt } from "react-icons/bi";
-import { BsPerson } from "react-icons/bs";
 import { AiOutlineRetweet } from "react-icons/ai";
 
 const Homefeed = () => {
 
   const {
-    currentUser, 
-    status, 
     currentUserHomeFeed,
     homeFeedStatus,
     tweetArray,
@@ -36,23 +31,16 @@ const Homefeed = () => {
     //we need this to order the tweets according to the tweetIds property 
     currentUserHomeFeed["tweetIds"].forEach((tweetID) =>{
       //add the matching tweet to the array that's going to contain the tweets objects ordered 
-      tweetArr.push(Object.values(currentUserHomeFeed["tweetsById"]).find( tweet => tweet.id == tweetID));
+      tweetArr.push(Object.values(currentUserHomeFeed["tweetsById"]).find( tweet => tweet.id == tweetID));//set Tweet Array
     });
 
-    console.log("set Tweet Array");
-    // setTweetArray(tweetArr);
+
     
   }
 
-  useEffect(() => {
-
-    // setTweetArray(tweetArr);
-
-  }, [tweetArr])
 
 
-  console.log("Homefeed rendered");
-  return (
+  return (//Homefeed getting rendered
 
     
     <Wrappera  style={{fontFamily : "'Roboto', sans-serif"}}>
@@ -60,7 +48,7 @@ const Homefeed = () => {
       { homeFeedStatus == "idle" ? (
 
         tweetArr.map((tweet) => (
-            <TweetContainer tweet = {tweet} setTweetArray={setTweetArray} tweetArray={tweetArray}>
+            <TweetContainer key={tweet.id} tweet = {tweet} setTweetArray={setTweetArray} tweetArray={tweetArray}>
             </TweetContainer>
           )
         )) : homeFeedStatus == "error" ? (
@@ -79,16 +67,12 @@ const Homefeed = () => {
 
 };
 
-const TweetContainer = ({tweet}) => {
+const TweetContainer = ({tweet}) => {//tweetContainer rendered
   const history = useHistory();
   let id = tweet.id;
-  console.log("tweetContainer rendered");
+
   
-    const handleOpenTweetDetails = (ev) =>{
-
-      console.log("tweeter details open clicked");
-
-      
+    const handleOpenTweetDetails = (ev) =>{//event fired when tweeter details open clicked
 
           history.push({
             pathname: `/tweet/${id}`,
@@ -112,15 +96,11 @@ const TweetContainer = ({tweet}) => {
         {tweet.status}
 
         { tweet.media.length > 0 && (
-
-          
-          
           <img src={tweet.media[0].url} /> //very raw displaying of the media tweets, will come back to improve it if I have time
           
         )}
 
       </TweetContent>
-        {/* <div>isLiked? {`${tweet.isLiked}`}</div> */}
       <TweetActions isLiked={tweet.isLiked}  tweetID={tweet.id}></TweetActions>
       <Divider />
 
